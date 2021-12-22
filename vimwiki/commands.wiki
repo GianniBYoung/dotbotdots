@@ -1,0 +1,5 @@
+`xset r rate 200 20`
+can be used to change the key repeat time
+
+
+

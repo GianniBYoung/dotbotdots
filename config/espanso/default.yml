@@ -1,0 +1,137 @@
+# espanso configuration file
+
+# This is the default configuration file, change it as you like it
+# You can refer to the official documentation:
+# https://espanso.org/docs/
+
+# Matches are the substitution rules, when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Dates
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%m/%d/%Y"
+
+  # Shell commands
+  - trigger: ":shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo Hello from your shell"
+
+
+  - trigger: "yyog"
+    replace: "younggianniguy@gmail.com"
+
+  - trigger: "yyoy"
+    replace: "younggianniguy@yahoo.com"
+
+  - trigger: "gprot"
+    replace: "gianniyoung@protonmail.com"
+
+    #Prints ip address
+  - trigger: ":ipp"
+    replace: "{{output}}"
+    vars:
+        - name: output
+          type: shell
+          params:
+            cmd: "curl https://ifconfig.me/"
+    #Prints current working directory
+
+  - trigger: ":pwd"
+    replace: "{{output}}"
+    vars:
+        - name: output
+          type: shell
+          params:
+             cmd: "pwd"
+
+  - trigger: ":hash"
+    replace: "#!/bin/bash"
+
+  - trigger: "phonnum"
+    replace: "5097109703"
+
+    #spelling corrections
+  - triggers: ["neccessary", "necessarry", "neccessarry"]
+    replace: "necessary"
+    word: true
+
+  - triggers: ["begginning", "beggining"]
+    replace: "beginning"
+    word: true
+
+  - trigger: "defn"
+    replace: "definition"
+
+  - trigger: "param"
+    replace: "parameter"
+    word: true
+
+  - trigger: "br"
+    replace: "<BR>"
+    word: true
+
+  - trigger: "xbar"
+    replace: "\\bar x"
+
+  - trigger: "phat:"
+    replace: "\\hat p"
+
+  - trigger: "nullhyp"
+    replace: "$H_0$"
+
+  - trigger: "althyp"
+    replace: "$H_0$"
+
+  - trigger: "sqrt"
+    replace: "\\sqrt{}"
+
+  - trigger: "sigma"
+    replace: "\\sigma"
+
+  - trigger: "bigma"
+    replace: "\\Sigma"
+
+  - trigger: "frac:"
+    replace: "\\frac{}{}"
+
+  - trigger: "fofx"
+    replace: "f(x)"
+
+  - trigger: "fofxy"
+    replace: "f(x,y)"
+
+  - trigger: "infty"
+    replace: "\\infty"
+
+  - trigger: "tablyy"
+    replace: "|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|"
+
+    #scripts
+  - trigger: ":dukem"
+    replace: "{{output}}"
+    vars:
+     - name: output
+       type: script
+       params:
+         args:
+             - sh
+             - /home/gianni/Documents/code/espanso-scripts/duke-nukem-quotes/random-duke-quote.sh
+
+  - trigger: ":playing"
+    replace: "{{output}}"
+    vars:
+     - name: output
+       type: script
+       params:
+         args:
+             - sh
+             - /home/gianni/.config/espanso/scripts/espanso-scripts/now-playing/now-playing.sh

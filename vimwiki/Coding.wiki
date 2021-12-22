@@ -1,0 +1,9 @@
+= python =
+* [[snippets]]
+
+= ruby =
+* [[snippets]]
+
+= shell =
+* [[snippets]]
+

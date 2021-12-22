@@ -1,0 +1,129 @@
+call plug#begin()
+" vim wiki
+Plug 'vimwiki/vimwiki'
+" big linting
+Plug 'dense-analysis/ale'
+" indents
+"Plug 'Yggdroot/indentLine'
+" colorizer
+Plug 'norcalli/nvim-colorizer.lua'
+" control p for opening file in splits
+Plug 'ctrlpvim/ctrlp.vim'
+" bottom ribbon
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" leader f to access ranger
+Plug 'francoiscabrol/ranger.vim'
+" buffer stuff I don't really know why I have or where it came from
+Plug 'rbgrouleff/bclose.vim'
+" auto complete - look into coc
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
+" colored brackets
+Plug 'frazrepo/vim-rainbow'
+" auto matches brackets
+Plug 'jiangmiao/auto-pairs'
+" leader cc to comment line(s) of code
+Plug 'scrooloose/nerdcommenter'
+" leader n to auto format code
+Plug 'sbdchd/neoformat'
+" leader m to auto lint code
+Plug 'neomake/neomake'
+" highlights yoinked text
+Plug 'machakann/vim-highlightedyank'
+" s to sneak to 2 letter combos
+Plug 'justinmk/vim-sneak'
+" indents but really ugly
+Plug 'nathanaelkane/vim-indent-guides'
+" opens browser for live markdown previews
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
+call plug#end()
+
+let g:deoplete#enable_at_startup = 1
+let g:rainbow_active = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#use_splits_not_buffers = "right"
+let base16colorspace=256
+let g:sneak#label = 1
+let g:ranger_map_keys = 0
+let g:neomake_python_enabled_makers = ['pylint']
+let mapleader=" "
+let g:indent_guides_enable_on_vim_startup = 0
+"markdown stuff
+let g:instant_markdown_mermaid = 1
+let g:instant_markdown_autoscroll = 1
+let g:instant_markdown_python = 1
+
+syntax enable
+syntax on
+filetype indent on
+filetype plugin on
+nnoremap <leader>S :%s//g<Left><Left>
+set nocompatible
+set autoindent
+set tabstop=4 shiftwidth=4 expandtab
+set clipboard+=unnamedplus
+set ic
+set nobackup
+set noswapfile
+set nowritebackup
+set ignorecase
+set relativenumber
+set number
+set lazyredraw
+set termguicolors
+set wildmode=longest,list,full
+set splitbelow splitright
+set showmatch
+set matchtime=3
+set listchars=tab:\|\ 
+set ts=1 sw=1 et
+set list
+
+nohlsearch
+hi CursorLineNr ctermfg = 15
+autocmd BufWritePre * %s/\\s\+$//e
+map <leader>f :Ranger<CR>
+map <leader>m :Neomake<CR>
+map <leader>i :IndentGuidesToggle<CR>
+map <leader>n :Neoformat<CR>
+map <leader>k :ColorizerToggle<CR>
+inoremap ii <Esc> 
+nnoremap <SPACE> <Nop> 
+autocmd BufWritePost *default.yml !espanso restart
+autocmd FileWritePost *zshrc !source ~/.zshrc
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+
+
+" for deoplete
+highlight Pmenu ctermbg=8 guibg=#606060
+highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
+" Use ALE and also some plugin 'foobar' as completion sources for all code.
+call deoplete#custom#option('sources', {
+\ '_': ['ale', 'jedi'],
+\})
+
+
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nnoremap <M-j>    :resize -2<CR>
+nnoremap <M-k>    :resize +2<CR>
+nnoremap <M-h>    :vertical resize -2<CR>
+nnoremap <M-l>    :vertical resize +2<CR>
+
+"Linter stuff below
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\}
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'

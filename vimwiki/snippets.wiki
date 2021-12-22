@@ -1,0 +1,2 @@
+* environmental variables
+`os.environ("VARIABLE NAME")`

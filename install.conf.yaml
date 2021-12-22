@@ -1,9 +1,38 @@
+- defaults:
+    link:
+      relink: true
+
 - clean: ['~']
 
 - link:
     ~/.zshrc: zshrc
+
+    ~/vimwiki: vimwiki
+
     ~/.config/i3:
         path: config/i3/
         create: true
 
+    ~/.config/nvim:
+        path: config/nvim/
+        create: true
 
+    ~/.config/espanso:
+        path: config/espanso/
+        create: true
+
+    ~/.config/flameshot:
+        path: config/flameshot/
+        create: true
+
+    ~/.config/kitty:
+        path: config/kitty/
+        create: true
+
+    ~/.config/ranger:
+        path: config/ranger/
+        create: true
+
+    ~/.config/rofi:
+      path: config/rofi/
+      create: true
