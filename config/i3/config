@@ -1,0 +1,411 @@
+# Mod1 = ALT key
+# Mod4 = Windows or Super key on keyboard
+
+set $mod Mod4
+set $up k
+set $down j
+set $left h
+set $right l
+
+
+set $up Up
+set $down Down
+set $left Left
+set $right Right
+
+#####################################################################################################################
+#################                          Single and Dual screen                                   #################
+#####################################################################################################################
+
+exec --no-startup-id xrandr --output HDMI-A-0 --auto
+# exec --no-sstartup-id xset r rate 250 200
+set $firstMonitor HDMI1
+
+workspace 1 output $firstMonitor
+workspace 2 output $firstMonitor
+workspace 3 output $firstMonitor
+workspace 4 output $firstMonitor
+workspace 5 output $firstMonitor
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1; workspace 1
+bindsym $mod+Shift+2 move container to workspace 2; workspace 2
+bindsym $mod+Shift+3 move container to workspace 3; workspace 3
+bindsym $mod+Shift+4 move container to workspace 4; workspace 4
+bindsym $mod+Shift+5 move container to workspace 5; workspace 5
+bindsym $mod+Shift+6 move container to workspace 6; workspace 6
+bindsym $mod+Shift+7 move container to workspace 7; workspace 7
+bindsym $mod+Shift+8 move container to workspace 8; workspace 8
+bindsym $mod+Shift+9 move container to workspace 9; workspace 9
+
+# start dmenu
+bindsym $mod+space exec --no-startup-id rofi -show drun
+bindsym $mod+g exec rofi-tmpmail
+
+#Press $mod (super) and X to exit - check toolbar for next choices
+bindsym $mod+X mode "$mode_system"
+
+set $mode_system System (k) lock, (l) logout, (u) suspend, (h) hibernate, (r) reboot, (s) shutdown
+mode "$mode_system" {
+    bindsym k exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
+    bindsym u exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Kills focused application
+bindsym $mod+q kill
+
+
+
+
+#####################################################################################################################
+#################                          Moving around in i3                                      #################
+#####################################################################################################################
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+Tab workspace back_and_forth
+
+
+
+
+
+#####################################################################################################################
+#################                          Tiling parameters                                        #################
+#####################################################################################################################
+
+# orientation for new workspaces
+default_orientation horizontal
+
+# split in horizontal orientation
+bindsym $mod+n split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+# bindsym $mod+w layout tabbed
+# bindsym $mod+e layout toggle split
+
+# change focus between tiling / floating windows
+#bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+bindsym $mod+r mode "resize"
+
+mode "resize" {
+        bindsym $left       resize shrink width 10 px or 10 ppt
+        bindsym $down       resize grow height 10 px or 10 ppt
+        bindsym $up         resize shrink height 10 px or 10 ppt
+        bindsym $right      resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+
+
+#####################################################################################################################
+#################                          choose the font                                          #################
+#####################################################################################################################
+
+font pango:Nimbus Sans 13
+
+#####################################################################################################################
+#################                          execute applications at boot time                        #################
+#####################################################################################################################
+
+#compositor
+exec_always --no-startup-id picom --config ~/.config/i3/picom.conf
+
+#Authentication dialog
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# bluetooth
+exec --no-startup-id blueberry-tray
+
+# num lock activated
+#exec_always --no-startup-id numlockx on
+
+#####################################################################################################################
+#################                                 system applications                               #################
+#####################################################################################################################
+
+exec --no-startup-id xfce4-power-manager &
+exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd &
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id copyq 
+# exec --no-startup-id ipfs daemon 
+
+#####################################################################################################################
+#################                          applications keyboard shortcuts                          #################
+#####################################################################################################################
+
+# terminal
+bindsym $mod+Return exec --no-startup-id kitty;focus
+bindsym $mod+CTRL+Return exec --no-startup-id urxvt;focus
+bindsym $mod+0 exec --no-startup-id xfce4-terminal --drop-down; focus
+
+#System monitor
+bindsym control+Shift+Escape exec --no-startup-id xfce4-taskmanager;focus
+
+#settings
+bindsym control+mod1+m exec --no-startup-id xfce4-settings-manager
+
+#pavucontrol
+bindsym control+mod1+u exec --no-startup-id pavucontrol
+
+#xkill
+bindsym --release $mod+Escape exec xkill
+
+#dmenu emojiis
+# bindsym $mod+i exec --no-startup-id /home/gianni/.bin/dmenuScripts/demoji
+
+#screenshots
+bindsym $mod+Shift+y exec flameshot gui -p /home/gianni/Pictures/screens
+
+bindsym $mod+u exec --no-startup-id firefox
+bindsym $mod+e exec --no-startup-id firefox
+bindsym $mod+Shift+u exec --no-startup-id brave
+
+bindsym $mod+i exec kitty -e nvim
+bindsym $mod+b exec kitty -e ranger
+
+for_window [class="Pcmanfm"] focus
+bindsym $mod+Shift+Return exec --no-startup-id pcmanfm;focus
+
+
+#Spotify controls
+bindsym $mod+F6 exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+
+bindsym $mod+F7 exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+
+bindsym $mod+F8 exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+
+
+#####################################################################################################################
+#################                          floating or tiled                                        #################
+#####################################################################################################################
+
+#floating enabled from some programs - find with xprop
+for_window [class="Bleachbit"] floating disable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Blueberry.py"] floating enable
+for_window [class="Brasero"] floating disable
+for_window [class="Galculator"] floating enable
+for_window [class="Gnome-disks"] floating disable
+for_window [class="^Gnome-font-viewer$"] floating enable
+for_window [class="^Gpick$"] floating enable
+for_window [class="Hexchat"] floating disable
+for_window [class="Imagewriter"] floating enable
+for_window [class="Font-manager"] floating enable
+for_window [class="Nitrogen"] floating disable
+for_window [class="Peek"] floating enable
+for_window [class="^Skype$"] floating enable
+for_window [class="^Spotify$"] floating disable
+for_window [class="System-config-printer.py"] floating enable
+for_window [class="Unetbootin.elf"] floating enable
+for_window [class="Usb-creator-gtk"] floating enable
+for_window [class="^Vlc$"] floating disable
+for_window [class="Wine"] floating disable
+for_window [class="Xfburn"] floating disable
+for_window [class="Xfce4-appfinder"] floating enable
+for_window [class="Xfce4-settings-manager"] floating disable
+for_window [class="Xfce4-taskmanager"] floating enable
+
+for_window [instance="script-fu"] border normal
+
+for_window [title="Copying"] floating enable
+for_window [title="Deleting"] floating enable
+for_window [title="Moving"] floating enable
+for_window [title="^Terminator Preferences$"] floating enable
+
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="^Preferences$"] floating enable
+for_window [window_role="setup"] floating enable
+
+#####################################################################################################################
+#################                          audio settings                                           #################
+#####################################################################################################################
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse sset Master '5%+'"
+bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse sset Master '5%-'"
+bindsym XF86AudioMute exec --no-startup-id "amixer -D pulse set Master toggle"
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+
+#####################################################################################################################
+#################                          border control                                           #################
+#####################################################################################################################
+
+# Border control
+hide_edge_borders both
+
+#new_window pixel 1
+new_window normal
+
+#new_float pixel 1
+new_float normal
+
+#####################################################################################################################
+#################                          Popups  control                                          #################
+#####################################################################################################################
+
+#Popups during fullscreen mode
+popup_during_fullscreen smart
+
+#####################################################################################################################
+#################                          i3 gaps next                                             #################
+#####################################################################################################################
+
+for_window [class="^.*"] border pixel 2
+gaps inner 8
+gaps outer 5
+#smart_gaps on
+smart_borders on
+
+#####################################################################################################################
+#################                          i3 gaps change                                           #################
+#####################################################################################################################
+
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+
+#####################################################################################################################
+#################                          bar appearance                                           #################
+#####################################################################################################################
+
+bar {
+
+    height 30
+    workspace_buttons yes
+    font pango:Nimbus Sans Bold 13
+    position bottom
+	status_command i3blocks -c ~/.config/i3/i3blok.conf
+
+colors {
+        # background #44236b
+        background #002b2b 
+        statusline #f9e8f7
+        separator #789f00 
+        #                     border  backgr. text
+        focused_workspace     #789f00 #002b2b #789f00  
+        # active_workspace      #7b54e9 #5f676a #a9a9a9
+        inactive_workspace    #789f00 #002b2b #a9a9a9
+        urgent_workspace      #7b54e9 #d42121 #FFFFFF
+        }
+
+    }
+
+
+# class                 border  backgr. text    indicator
+client.placeholder      #242424 #242424 #242424
+client.background       #242424 #242424 #242424
+client.focused          #6790EB #FF7E00 #e5e5e5 #6790EB
+client.unfocused        #222222 #222222 #aaaaaa #222222
+client.focused_inactive #222222 #222222 #a9a9a9 #222222
+client.urgent           #d42121 #d42121 #f7f7f7 #d42121
+
+
+###laptop stuff
+
+exec_always --no-startup-id autotiling
+exec --no-startup-id nm-applet
+exec --no-startup-id volumeicon

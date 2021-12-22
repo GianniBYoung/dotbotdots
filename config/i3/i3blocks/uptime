@@ -1,0 +1,7 @@
+#!/bin/bash
+upt=$(uptime)
+echo $(uptime | awk '{print $3}') Days
+if [ $BLOCK_BUTTON ]; then
+    notify-send "$upt"
+fi
+
