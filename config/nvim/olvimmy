@@ -1,8 +1,4 @@
-" Based off of Jess Archer's configs
-"--------------------------------------------------------------------------
-" General settings
-"--------------------------------------------------------------------------
-
+" based on jess archers nvim config
 set expandtab
 set shiftwidth=4
 set tabstop=4
