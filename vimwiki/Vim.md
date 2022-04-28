@@ -1,5 +1,2 @@
 [vim-snippits](vim-snippits)
-* learn about LSP
-* look into learning lua
-* alternatives for coc?
-* lots of fun snippits on twitter
+link to lsp setup guide: https://dev.to/vonheikemen/getting-started-with-neovims-native-lsp-client-in-the-year-of-2022-the-easy-way-bp3

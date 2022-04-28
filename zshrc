@@ -1,5 +1,6 @@
 TZ='America/Menominee'; export TZ
 
+DISABLE_AUTO_UPDATE="true"
 ZSH_THEME="kolo"
 export ZSH="/home/gianni/.oh-my-zsh"
 
@@ -8,7 +9,7 @@ export ZSH="/home/gianni/.oh-my-zsh"
 
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(zsh-z z fzf zsh-autosuggestions git extract python pip colored-man-pages colorize sudo copypath copybuffer copyfile node dirhistory fancy-ctrl-z)
+plugins=(ansible zsh-z z fzf zsh-autosuggestions git extract python pip colored-man-pages colorize sudo copypath copybuffer copyfile node dirhistory fancy-ctrl-z)
 
 source $ZSH/oh-my-zsh.sh
 source /home/gianni/.oh-my-zsh/plugins/*
