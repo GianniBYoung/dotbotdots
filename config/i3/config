@@ -220,7 +220,7 @@ bindsym --release $mod+Escape exec xkill
 # bindsym $mod+i exec --no-startup-id /home/gianni/.bin/dmenuScripts/demoji
 
 #screenshots
-bindsym $mod+Shift+y exec flameshot gui -p /home/gianni/Pictures/screens
+bindsym $mod+Shift+y exec flameshot gui
 
 bindsym $mod+u exec --no-startup-id firefox
 bindsym $mod+e exec --no-startup-id firefox
