@@ -3,6 +3,16 @@ TZ='America/Menominee'; export TZ
 DISABLE_AUTO_UPDATE="true"
 ZSH_THEME="kolo"
 export ZSH="/home/gianni/.oh-my-zsh"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+# export ZDOTDIR="$HOME"/.config/zsh
+# export HISTFILE="$XDG_STATE_HOME"/zsh/history
+
+
+
+
 
  HYPHEN_INSENSITIVE="true"
  COMPLETION_WAITING_DOTS="true"
@@ -53,7 +63,7 @@ kitty + complete setup zsh | source /dev/stdin
 
 alias trans='transmission-remote'
 alias install='sudo pacman -S'
-alias nrc='nvim .zshrc'
+alias nrc='nvim ~/.zshrc'
 alias cp= 'cp -iv'
 alias vim='nvim'
 alias rss='newsboat'
@@ -69,7 +79,7 @@ alias cse='ssh gyoung@cse.unl.edu'
 alias exiftool='perl /media/ext-drive/misc/downloads/Image-ExifTool-12.19/exiftool'
 alias tux='tuxi'
 alias s='sudo systemctl'
-alias ls='ls --color=auto'
+alias ls='lsd --color=auto'
 alias la='ls -a'
 alias l='ls'
 alias cd..='cd ..'
